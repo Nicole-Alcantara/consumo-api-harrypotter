@@ -6,23 +6,27 @@ async function fetchCharacters(page){
     resultsDiv.innerHTML = "<p>Carregando...</p>"
 
     try{
-        const response = await fetch(`https://hp-api.herokuapp.com/api/characters`)
+        const response = await fetch(`https://hp-api.onrender.com/api/characters`)
         const data = await response.json()
-        //console.log(data)
+        console.log(data)
         if(data.error){
             resultsDiv.innerHTML = "<p>Página inválida! Tente outra. (1/42)</p>"
             return
         }
 
         resultsDiv.innerHTML = ""
-        data.item.forEach(character => {
+        data.forEach(character => {
             const card = document.createElement("div")
             card.className = "card"
             card.innerHTML = `
                 <img src="${character.image}" alt="${character.name}">
                 <h3>${character.name}</h3>
-                <p><strong>Status:<strong>${character.status}</p>
                 <p><strong>Espécie:<strong>${character.species}</p>
+                <p><strong>Gender:<strong>${character.gender}</p>
+                <p><strong>House:<strong>${character.house}</p>
+                <p><strong>Patronus:<strong>${character.patronus}</p>
+                <p><strong>Hogwarts Student:<strong>${character.hogwartsStudent}</p>
+                <p><strong>Actor:<strong>${character.actor}</p>
             `
             resultsDiv.appendChild(card)
         })
